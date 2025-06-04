@@ -7,7 +7,9 @@ try {
 	$pdo = new PDO($dsn,$user,$pass);
 	$pdo->exec("set names utf8");
 } catch (PDOException $e) {
-	echo 'Connection error!' . $e->getMessage();
+	// Change this to log the error instead of echoing it
+	error_log('Connection error: ' . $e->getMessage());
+	$pdo = null; // Set $pdo to null to indicate connection failure
 }
+// Remove the closing PHP tag to prevent accidental whitespace
 
- ?>
