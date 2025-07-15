@@ -11,11 +11,11 @@ define('SITE_ROOT', 'http://localhost/c4binventory/');
 // Database Hostname
 define('DATABASE_HOST','localhost');
 // Database Username
-define('DATABASE_USER','root');
+define('DATABASE_USER','admin');
 // Database Name
 define('DATABASE_NAME', 'ample');
 // Database DB_PASS
-define('DATABASE_PASS','');
+define('DATABASE_PASS','root');
 
 
  ?>
