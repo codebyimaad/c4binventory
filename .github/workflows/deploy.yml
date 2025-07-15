@@ -54,5 +54,6 @@ jobs:
           port: 22
           script: |
             cd /home/${{ secrets.SERVER_USER }}/c4binventory
-            docker-compose down
-            docker-compose up -d --build
+            docker compose down
+            docker compose up -d --build
+
