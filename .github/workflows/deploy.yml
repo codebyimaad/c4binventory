@@ -13,46 +13,40 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Test SSH connection
-        uses: appleboy/ssh-action@v0.1.4
+      - name: Ensure target directory exists
+        uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          port: 22
-          script: |
-            whoami
-            ls -ld /home/${{ secrets.SERVER_USER }}/c4binventory || echo "Folder does not exist or no permission"
+          script: mkdir -p /home/ubuntu/c4binventory
 
-      - name: Create deploy folder if missing
-        uses: appleboy/ssh-action@v0.1.4
+      - name: Clean target directory
+        uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          port: 22
-          script: mkdir -p /home/${{ secrets.SERVER_USER }}/c4binventory
+          script: rm -rf /home/ubuntu/c4binventory/*
 
-      - name: Copy project to server
+      - name: Copy files to server
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          port: 22
-          source: "./*"
-          target: "/home/${{ secrets.SERVER_USER }}/c4binventory"
+          source: "."
+          target: "/home/ubuntu/c4binventory"
           strip_components: 1
-          # rm: true
 
-      - name: SSH and rebuild/start Docker
-        uses: appleboy/ssh-action@v0.1.4
+      - name: SSH and deploy with Docker Compose
+        uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          port: 22
           script: |
-            cd /home/${{ secrets.SERVER_USER }}/c4binventory
-            docker-compose down
-            docker-compose up -d --build
+            set -e
+            cd /home/ubuntu/c4binventory
+            docker compose down || true
+            docker compose up -d --build
