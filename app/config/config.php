@@ -3,7 +3,7 @@
 date_default_timezone_set("Africa/Kampala");
 
 // define the site root
-define('SITE_ROOT', 'http://localhost/c4binventory/');
+define('SITE_ROOT', 'http://130.162.171.209/');
 
 
 
