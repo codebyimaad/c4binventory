@@ -9,7 +9,7 @@ define('SITE_ROOT', 'http://130.162.171.209/');
 
 // Database Information
 // Database Hostname
-define('DATABASE_HOST','130.162.171.209');
+define('DATABASE_HOST','c4binventory_db')
 // Database Username
 define('DATABASE_USER','admin');
 // Database Name
