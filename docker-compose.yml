@@ -17,10 +17,10 @@ services:
     restart: always
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_ROOT_PASSWORD: 
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: ample
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: root
     volumes:
       - db_data:/var/lib/mysql
 
